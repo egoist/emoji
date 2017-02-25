@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "name": "emoji-search",
+  "version": "0.0.0",
+  "repository": {},
+  "scripts": {
+    "test": "echo lol",
+    "lint": "vbuild -c --eslint",
+    "dev": "vbuild -dc",
+    "build": "vbuild -c",
+    "surge": "npm run build && surge -p dist -d emoji-search.surge.sh"
+  },
+  "devDependencies": {
+    "vbuild": "latest"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "clipboard": "^1.6.0",
+    "emojilib": "^2.1.0",
+    "fuse.js": "^2.6.2",
+    "lodash.debounce": "^4.0.8",
+    "native-toast": "^1.1.0"
+  }
+}
