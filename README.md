@@ -1,6 +1,6 @@
 # emoji searcher
 
-A slim emoji searcher.
+A slim and modern emoji searcher.
 
 ## Related projects
 
