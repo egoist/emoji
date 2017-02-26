@@ -1,7 +1,9 @@
 {
   "private": true,
   "name": "emoji-search",
+  "description": "A modern emoji searcher.",
   "version": "0.0.0",
+  "main": "src/index.js",
   "repository": {},
   "scripts": {
     "test": "echo lol",
@@ -13,7 +15,7 @@
   },
   "devDependencies": {
     "gh-pages": "^0.12.0",
-    "vbuild": "latest"
+    "vbuild": "^6.19.0"
   },
   "license": "MIT",
   "dependencies": {
@@ -22,5 +24,14 @@
     "fuse.js": "^2.6.2",
     "lodash.debounce": "^4.0.8",
     "native-toast": "^1.1.0"
+  },
+  "vbuild": {
+    "webpack": {
+      "resolve": {
+        "modules": [
+          "./src"
+        ]
+      }
+    }
   }
 }

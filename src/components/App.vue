@@ -149,3 +149,11 @@
     margin-left: 10px;
   }
 </style>
+
+<style>
+  @media screen and (max-width: 768px) {
+    .emoji {
+      width: 50%;
+    }
+  }
+</style>
