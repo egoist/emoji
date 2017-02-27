@@ -3,12 +3,17 @@
     <h1>Emoji Search</h1>
     <h1 v-if="!source">Loading...</h1>
     <div class="main" v-if="source">
-      <input
-        autofocus
-        type="text"
-        class="input-search"
-        placeholder="Type to filter..."
-        @input="handleChange">
+      <div class="input-group">
+        <input
+          autofocus
+          type="text"
+          class="input-search"
+          placeholder="Type to filter..."
+          ref="input"
+          @input="handleChange"
+          v-model="input">
+          <button type="button" class="btn" @click="handleReset">Reset</button>
+      </div>
       <div class="emojis">
         <div
           v-for="emoji in emojis"
@@ -40,7 +45,8 @@
         source: null,
         keyword: null,
         category: null,
-        clipboard: null
+        clipboard: null,
+        input: null
       }
     },
     computed: {
@@ -75,9 +81,14 @@
       }))
     },
     methods: {
-      handleChange: debounce(function ({target: {value}}) {
-        this.keyword = value
+      handleChange: debounce(function () {
+        this.keyword = this.input
       }, 300),
+      handleReset() {
+        this.input = null
+        this.keyword = null
+        this.$refs.input.focus()
+      },
       initClipboard({currentTarget}) {
         this.clipboard = new Clipboard(currentTarget)
         this.clipboard.on('success', e => {
@@ -119,6 +130,7 @@
     padding: 10px;
     width: 100%;
     font-size: 18px;
+    flex: 4;
   }
 
   .emojis {
@@ -147,6 +159,16 @@
   .emoji .emoji-description {
     font-size: 14px;
     margin-left: 10px;
+  }
+
+  .input-group {
+    display: flex;
+  }
+
+  .btn {
+    flex: 1;
+    color: #000;
+    background-color: #fff;
   }
 </style>
 
