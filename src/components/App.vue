@@ -67,7 +67,7 @@
               weight: 0.3
             }]
           })
-          result = fuse.search(this.keyword).slice(0, 10)
+          result = fuse.search(this.keyword).slice(0, 12)
         }
 
         return result
