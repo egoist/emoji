@@ -20,7 +20,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "babel-polyfill": "^6.23.0",
     "clipboard": "^1.6.0",
     "emojilib": "^2.1.0",
     "fuse.js": "^2.6.2",
