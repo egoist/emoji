@@ -1,5 +1,5 @@
 CACHE MANIFEST
-#ver:2017-3-10 22:53:41
+#ver:2017-3-10 22:59:07
 #plugin:4.6.1
 
 CACHE:
@@ -10,8 +10,8 @@ CACHE:
 /client.95a73432.css
 /vendor.4bf54fea.css
 /
-/CNAME
 /favicon.ico
+/CNAME
 
 NETWORK:
 *
