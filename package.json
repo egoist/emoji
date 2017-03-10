@@ -1,6 +1,7 @@
 {
   "private": true,
   "name": "emoji-search",
+  "productionName": "Emoji Searcher: find the emoji that echoes your mind",
   "description": "A modern emoji searcher.",
   "version": "0.0.0",
   "main": "src/index.js",

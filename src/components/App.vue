@@ -12,7 +12,7 @@
           ref="input"
           @input="handleChange"
           v-model="input">
-          <button type="button" class="btn" @click="handleReset">Reset</button>
+          <button type="button" class="button-reset" @click="handleReset">Reset</button>
       </div>
       <div class="emojis">
         <div
@@ -131,6 +131,13 @@
     width: 100%;
     font-size: 18px;
     flex: 4;
+    outline: none;
+    border: 1px solid #e2e2e2;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .input-search:focus {
+    border-color: #ccc;
   }
 
   .emojis {
@@ -165,10 +172,13 @@
     display: flex;
   }
 
-  .btn {
+  .button-reset {
     flex: 1;
     color: #000;
     background-color: #fff;
+    border: 1px solid #e2e2e2;
+    border-left: none;
+    border-radius: 0 3px 3px 0;
   }
 </style>
 
