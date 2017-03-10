@@ -1,6 +1,8 @@
 <template>
   <div class="main" v-if="source">
-    <h1 class="site-name">Emoji Searcher</h1>
+    <h1 class="site-name">
+      <span>Emoji Searcher</span>
+    </h1>
     <div class="input-group">
       <input
         autofocus
@@ -71,13 +73,6 @@
         return result
       }
     },
-    async created() {
-      const emojilib = await import('emojilib')
-      this.source = Object.keys(emojilib.lib).map(name => ({
-        name,
-        ...emojilib.lib[name]
-      }))
-    },
     methods: {
       handleChange: debounce(function () {
         this.keyword = this.input
@@ -110,8 +105,31 @@
 
 <style scoped>
   .site-name {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: 300;
+    text-align: center;
+    position: relative;
+  }
+
+  .site-name:before {
+    display: block;
+    content: '';
+    height: 1px;
+    background-color: #e8e8e8;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+  }
+
+  .site-name span {
+    z-index: 2;
+    position: relative;
+    background-color: #f9f9f9;
+    padding: 0 20px;
+    color: #989898;
+    text-shadow: 0 1px 1px white;
   }
 
   .input-search {
