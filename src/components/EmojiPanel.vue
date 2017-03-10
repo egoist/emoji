@@ -1,5 +1,6 @@
 <template>
   <div class="main" v-if="source">
+    <github-badge class="github-icon" slug="egoist/emoji" fill="#999"></github-badge>
     <h1 class="site-name">
       <span>Emoji Searcher</span>
     </h1>
@@ -37,6 +38,7 @@
   import debounce from 'lodash.debounce'
   import Clipboard from 'clipboard'
   import toast from 'native-toast'
+  import GitHubBadge from 'vue-github-badge'
 
   export default {
     name: 'emoji-panel',
@@ -97,6 +99,9 @@
           this.clipboard = null
         }
       }
+    },
+    components: {
+      'github-badge': GitHubBadge
     }
   }
 </script>
@@ -104,6 +109,10 @@
 <style src="native-toast/dist/native-toast.css"></style>
 
 <style scoped>
+  .main {
+    margin-top: 40px;
+  }
+
   .site-name {
     font-size: 30px;
     font-weight: 300;
@@ -200,6 +209,10 @@
     background-color: #f0f0f0;
     border-color: #ccc;
     z-index: 2;
+  }
+
+  .github-icon:hover svg path {
+    fill: #333;
   }
 </style>
 

@@ -5207,6 +5207,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-github-badge@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/vue-github-badge/-/vue-github-badge-1.0.0.tgz#1109a8833d5a2e69d88202cfd01d4841829418b9"
+
 vue-hot-reload-api@^2.0.1:
   version "2.0.10"
   resolved "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.0.10.tgz#28a12ef10511e70c90f260b0cbc4066b050e8af8"
