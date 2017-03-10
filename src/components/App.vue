@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div id="app">
     <h1>Emoji Search</h1>
     <h1 v-if="!source">Loading...</h1>
     <div class="main" v-if="source">
@@ -36,6 +36,7 @@
 <script>
   import Fuse from 'fuse.js'
   import debounce from 'lodash.debounce'
+  import Clipboard from 'clipboard'
   import toast from 'native-toast'
 
   export default {
@@ -89,8 +90,6 @@
         this.$refs.input.focus()
       },
       initClipboard({currentTarget}) {
-        const Clipboard = require('clipboard')
-
         this.clipboard = new Clipboard(currentTarget)
         this.clipboard.on('success', e => {
           toast({message: `Copied ${e.text}`, type: 'success'})
@@ -122,7 +121,7 @@
 </style>
 
 <style scoped>
-  .page {
+  #app {
     max-width: 700px;
     margin: 0 auto;
   }

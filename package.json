@@ -7,13 +7,15 @@
   "repository": {},
   "scripts": {
     "test": "echo lol",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "surge": "npm run generate && surge -p dist -d emoji-search.surge.sh",
-    "deploy": "npm run generate && gh-pages -d dist"
+    "lint": "vbuild -c --eslint",
+    "dev": "vbuild -dc",
+    "build": "vbuild -c",
+    "surge": "npm run build && surge -p dist -d emoji-search.surge.sh",
+    "deploy": "npm run lint && gh-pages -d dist"
   },
   "devDependencies": {
-    "gh-pages": "^0.12.0"
+    "gh-pages": "^0.12.0",
+    "vbuild": "^6.19.0"
   },
   "license": "MIT",
   "dependencies": {
@@ -21,7 +23,15 @@
     "emojilib": "^2.1.0",
     "fuse.js": "^2.6.2",
     "lodash.debounce": "^4.0.8",
-    "native-toast": "^1.1.0",
-    "nuxt": "^0.9.9"
+    "native-toast": "^1.1.0"
+  },
+  "vbuild": {
+    "webpack": {
+      "resolve": {
+        "modules": [
+          "./src"
+        ]
+      }
+    }
   }
 }
