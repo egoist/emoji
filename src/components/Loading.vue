@@ -17,7 +17,7 @@
     mounted() {
       setInterval(() => {
         this.count = ++this.count % this.total
-      }, 400)
+      }, 200)
     },
     computed: {
       emoji() {
