@@ -23,7 +23,7 @@
         ...emojilib.lib[name]
       }))
     },
-    components: { EmojiPanel, Loading }
+    components: {EmojiPanel, Loading}
   }
 </script>
 
