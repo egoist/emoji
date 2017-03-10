@@ -25,15 +25,7 @@
     "emojilib": "^2.1.0",
     "fuse.js": "^2.6.2",
     "lodash.debounce": "^4.0.8",
-    "native-toast": "^1.1.0"
-  },
-  "vbuild": {
-    "webpack": {
-      "resolve": {
-        "modules": [
-          "./src"
-        ]
-      }
-    }
+    "native-toast": "^1.1.0",
+    "offline-plugin": "^4.6.1"
   }
 }
