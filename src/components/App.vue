@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>Emoji Search</h1>
+    <h1 class="site-name">Emoji Searcher</h1>
     <h1 v-if="!source">Loading...</h1>
     <div class="main" v-if="source">
       <div class="input-group">
@@ -113,6 +113,8 @@
 <style>
   body {
     background-color: #f9f9f9;
+    margin: 0;
+    font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   }
 
   * {
@@ -126,6 +128,11 @@
     margin: 0 auto;
   }
 
+  .site-name {
+    font-size: 40px;
+    font-weight: 300;
+  }
+
   .input-search {
     padding: 10px;
     width: 100%;
@@ -133,7 +140,9 @@
     flex: 4;
     outline: none;
     border: 1px solid #e2e2e2;
-    border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 0px;
+    position: relative;
+    z-index: 1;
   }
 
   .input-search:focus {
@@ -141,9 +150,13 @@
   }
 
   .emojis {
-    margin-top: 20px;
     display: flex;
     flex-wrap: wrap;
+    border: 1px solid #e2e2e2;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+    margin-bottom: 30px;
+    background-color: white;
   }
 
   .emoji {
@@ -153,7 +166,6 @@
     width: 25%;
     white-space: nowrap;
     overflow: hidden;
-    border-radius: 3px;
     padding: 5px 10px;
   }
 
@@ -174,11 +186,21 @@
 
   .button-reset {
     flex: 1;
-    color: #000;
+    color: #778087;
     background-color: #fff;
     border: 1px solid #e2e2e2;
-    border-left: none;
-    border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 0 0;
+    background-color: #f9f9f9;
+    font-size: 20px;
+    font-weight: 300;
+    margin-left: -1px;
+    position: relative;
+  }
+
+  .button-reset:hover {
+    background-color: #f0f0f0;
+    border-color: #ccc;
+    z-index: 2;
   }
 </style>
 
