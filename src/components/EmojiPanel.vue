@@ -4,6 +4,14 @@
     <h1 class="site-name">
       <span>Emoji Searcher</span>
     </h1>
+    <div class="control">
+      <label class="control-block">
+        <el-switch v-model="useDango" /> Search with Dango API
+      </label>
+      <label class="control-block">
+        <el-switch v-model="copyEmojiName" /> Copy emoji name
+      </label>
+    </div>
     <div class="input-group">
       <input
         autofocus
@@ -19,7 +27,7 @@
       <div
         v-for="emoji in emojis"
         class="emoji"
-        :data-clipboard-text="`:${emoji.name}:`"
+        :data-clipboard-text="copyEmojiName ? `:${emoji.name}:` : emoji.char"
         @mouseover="initClipboard"
         @mouseout="destroyClipboard">
         <span class="emoji-image">
@@ -39,6 +47,8 @@
   import Clipboard from 'clipboard'
   import toast from 'native-toast'
   import GitHubBadge from 'vue-github-badge'
+  import { Switch } from 'element-ui'
+  import fetch from 'unfetch'
 
   export default {
     name: 'emoji-panel',
@@ -48,11 +58,22 @@
         keyword: null,
         category: null,
         clipboard: null,
-        input: null
+        input: null,
+        useDango: false,
+        copyEmojiName: false,
+        emojis: this.source
       }
     },
-    computed: {
-      emojis() {
+    created() {
+      this.$watch('keyword', this.handleUpdate)
+      this.$watch('category', this.handleUpdate)
+      this.$watch('useDango', this.handleUpdate)
+    },
+    methods: {
+      handleChange: debounce(function () {
+        this.keyword = this.input
+      }, 300),
+      async handleUpdate() {
         let result = this.source
 
         if (this.category) {
@@ -60,25 +81,27 @@
         }
 
         if (this.keyword) {
-          const fuse = new Fuse(result, {
-            keys: [{
-              name: 'keywords',
-              weight: 0.7
-            }, {
-              name: 'name',
-              weight: 0.3
-            }]
-          })
-          result = fuse.search(this.keyword).slice(0, 12)
+          if (this.useDango) {
+            const { results } = await fetch(`https://emoji.getdango.com/api/emoji?q=${this.keyword}`).then(res => res.json())
+            result = results
+              .map(emoji => this.findEmojiByUnicode(emoji.text))
+              .filter(emoji => Boolean(emoji))
+          } else {
+            const fuse = new Fuse(result, {
+              keys: [{
+                name: 'keywords',
+                weight: 0.7
+              }, {
+                name: 'name',
+                weight: 0.3
+              }]
+            })
+            result = fuse.search(this.keyword).slice(0, 12)
+          }
         }
 
-        return result
-      }
-    },
-    methods: {
-      handleChange: debounce(function () {
-        this.keyword = this.input
-      }, 300),
+        this.emojis = result
+      },
       handleReset() {
         this.input = null
         this.keyword = null
@@ -98,10 +121,16 @@
           this.clipboard.destroy()
           this.clipboard = null
         }
+      },
+      findEmojiByUnicode(unicode) {
+        return this.source.filter(emoji => {
+          return emoji.char === unicode
+        })[0]
       }
     },
     components: {
-      'github-badge': GitHubBadge
+      'github-badge': GitHubBadge,
+      'el-switch': Switch
     }
   }
 </script>
@@ -213,6 +242,27 @@
 
   .github-icon:hover svg path {
     fill: #333;
+  }
+</style>
+
+<style>
+  .control {
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .control-block {
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+  }
+
+  .control-block label {
+    margin-right: 5px;
   }
 </style>
 

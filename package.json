@@ -15,17 +15,20 @@
     "deploy": "npm run lint && gh-pages -d dist"
   },
   "devDependencies": {
+    "babel-plugin-component": "^0.9.1",
     "gh-pages": "^0.12.0",
     "vbuild": "^6.19.0"
   },
   "license": "MIT",
   "dependencies": {
     "clipboard": "^1.6.0",
+    "element-ui": "^1.2.4",
     "emojilib": "^2.1.0",
     "fuse.js": "^2.6.2",
     "lodash.debounce": "^4.0.8",
     "native-toast": "^1.1.0",
     "offline-plugin": "^4.6.1",
+    "unfetch": "^2.1.2",
     "vue-github-badge": "^1.0.0"
   }
 }
