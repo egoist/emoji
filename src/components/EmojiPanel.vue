@@ -95,9 +95,9 @@
               result = results
                 .map(emoji => this.findEmojiByUnicode(emoji.text))
                 .filter(emoji => Boolean(emoji))
-              } catch (err) {
-                toast({message: err.message, type: 'error'})
-              }
+            } catch (err) {
+              toast({message: err.message, type: 'error'})
+            }
           } else {
             const fuse = new Fuse(result, {
               keys: [{

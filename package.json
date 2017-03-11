@@ -17,11 +17,11 @@
   "devDependencies": {
     "babel-plugin-component": "^0.9.1",
     "gh-pages": "^0.12.0",
-    "vbuild": "^6.19.0"
+    "vbuild": "^6.24.0"
   },
   "license": "MIT",
   "dependencies": {
-    "clipboard": "^1.6.0",
+    "clipboard": "^1.6.1",
     "element-ui": "^1.2.4",
     "emojilib": "^2.1.0",
     "fuse.js": "^2.6.2",
