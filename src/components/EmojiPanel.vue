@@ -64,6 +64,7 @@
         emojis: this.source
       }
     },
+    syncStore: ['useDango', 'copyEmojiName'],
     created() {
       this.$watch('keyword', this.handleUpdate)
       this.$watch('category', this.handleUpdate)
