@@ -17,15 +17,20 @@
         autofocus
         type="text"
         class="input-search"
-        placeholder="Type to filter..."
+        placeholder="Type to search..."
         ref="input"
         @input="handleChange"
         v-model="input">
-        <button type="button" class="button-reset" @click="handleReset">Reset</button>
+        <button v-if="searching" disabled type="button" class="button-reset">
+          <span class="loading runner"></span>
+        </button>
+        <button v-else type="button" class="button-reset" @click="handleReset">
+          Reset
+        </button>
     </div>
-    <div class="emojis">
+    <div class="emojis" v-if="result.length">
       <div
-        v-for="emoji in emojis"
+        v-for="emoji in result"
         class="emoji"
         :data-clipboard-text="copyEmojiName ? `:${emoji.name}:` : emoji.char"
         @mouseover="initClipboard"
@@ -61,7 +66,8 @@
         input: null,
         useDango: false,
         copyEmojiName: false,
-        emojis: this.source
+        result: this.source.slice(0, 200),
+        searching: false
       }
     },
     syncStore: ['useDango', 'copyEmojiName'],
@@ -75,6 +81,7 @@
         this.keyword = this.input
       }, 300),
       async handleUpdate() {
+        this.searching = true
         let result = this.source
 
         if (this.category) {
@@ -83,10 +90,14 @@
 
         if (this.keyword) {
           if (this.useDango) {
-            const {results} = await fetch(`https://emoji.getdango.com/api/emoji?q=${this.keyword}`).then(res => res.json())
-            result = results
-              .map(emoji => this.findEmojiByUnicode(emoji.text))
-              .filter(emoji => Boolean(emoji))
+            try {
+              const {results} = await fetch(`https://emoji.getdango.com/api/emoji?q=${this.keyword}`).then(res => res.json())
+              result = results
+                .map(emoji => this.findEmojiByUnicode(emoji.text))
+                .filter(emoji => Boolean(emoji))
+              } catch (err) {
+                toast({message: err.message, type: 'error'})
+              }
           } else {
             const fuse = new Fuse(result, {
               keys: [{
@@ -99,9 +110,12 @@
             })
             result = fuse.search(this.keyword).slice(0, 12)
           }
+        } else if (!this.category) {
+          result = result.slice(0, 200)
         }
 
-        this.emojis = result
+        this.result = result
+        this.searching = false
       },
       handleReset() {
         this.input = null
@@ -140,7 +154,7 @@
 
 <style scoped>
   .main {
-    margin-top: 40px;
+    margin-top: 80px;
   }
 
   .site-name {
@@ -150,21 +164,7 @@
     position: relative;
   }
 
-  .site-name:before {
-    display: block;
-    content: '';
-    height: 1px;
-    background-color: #e8e8e8;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
-    width: 100%;
-  }
-
   .site-name span {
-    z-index: 2;
-    position: relative;
     background-color: #f9f9f9;
     padding: 0 20px;
     color: #989898;
@@ -246,8 +246,9 @@
   }
 </style>
 
-<style>
+<style scoped>
   .control {
+    margin-top: 50px;
     padding-bottom: 20px;
     display: flex;
     align-items: center;
@@ -265,6 +266,31 @@
   .control-block label {
     margin-right: 5px;
   }
+</style>
+
+<style scoped>
+  .loading {
+    display: inline-block;
+    overflow: hidden;
+    height: 1.3em;
+    margin-top: -0.3em;
+    line-height: 1.5em;
+    vertical-align: text-bottom;
+  }
+
+  .loading::after {
+    display: inline-table;
+    white-space: pre;
+    text-align: left;
+  }
+
+  .loading.runner::after {
+    content: "🚶\A🏃";
+    animation: spin2 1s steps(2) infinite;
+    width: 1.3em;
+  }
+
+  @keyframes spin2  { to { transform: translateY( -3.0em); } }
 </style>
 
 <style>
