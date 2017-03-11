@@ -14,15 +14,18 @@
         total: 10
       }
     },
-    mounted() {
-      setInterval(() => {
-        this.count = ++this.count % this.total
-      }, 200)
-    },
     computed: {
       emoji() {
         return '🔥'.repeat(this.count)
       }
+    },
+    mounted() {
+      this.timer = setInterval(() => {
+        this.count = ++this.count % this.total
+      }, 200)
+    },
+    beforeDestroy() {
+      clearInterval(this.timer)
     }
   }
 </script>
