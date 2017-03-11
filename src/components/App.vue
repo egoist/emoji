@@ -37,6 +37,15 @@
   * {
     box-sizing: border-box;
   }
+
+  a {
+    color: #333;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 </style>
 
 <style scoped>

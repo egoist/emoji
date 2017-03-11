@@ -6,7 +6,7 @@
     </h1>
     <div class="control">
       <label class="control-block">
-        <el-switch v-model="useDango" /> Search with Dango API
+        <el-switch v-model="useDango" /> Search with&nbsp;<a target="_blank" href="https://getdango.com/">Dango API</a>
       </label>
       <label class="control-block">
         <el-switch v-model="copyEmojiName" /> Copy emoji name
