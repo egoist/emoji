@@ -19,9 +19,9 @@
     async created() {
       const emojilib = await import('emojilib')
       this.source = Object.keys(emojilib.lib).map(name => ({
-        name,
-        ...emojilib.lib[name]
-      }))
+        ...emojilib.lib[name],
+        name
+      })).filter(emoji => Boolean(emoji.char))
     },
     components: {EmojiPanel, Loading}
   }

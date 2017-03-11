@@ -100,15 +100,11 @@
             }
           } else {
             const fuse = new Fuse(result, {
-              keys: [{
-                name: 'keywords',
-                weight: 0.7
-              }, {
-                name: 'name',
-                weight: 0.3
-              }]
+              keys: ['name', 'keywords'],
+              tokenize: true,
+              shouldSort: true
             })
-            result = fuse.search(this.keyword).slice(0, 12)
+            result = fuse.search(this.keyword).slice(0, 20)
           }
         } else if (!this.category) {
           result = result.slice(0, 200)
