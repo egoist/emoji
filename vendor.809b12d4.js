@@ -6851,7 +6851,7 @@ function cloneRoute (to, from) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise_auto__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise_auto__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise_auto___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_es6_promise_auto__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__create_app__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__alias_entry__ = __webpack_require__(8);
@@ -7174,9 +7174,9 @@ const setAsyncData = data => {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_vue__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_vue__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__App_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__App_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_meta__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_meta__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_meta___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_meta__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex_router_sync__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex_router_sync___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vuex_router_sync__);
@@ -7216,18 +7216,19 @@ __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */].use(__WEBPACK_IMPORTED_MODU
 /***/ }),
 /* 8 */,
 /* 9 */,
-/* 10 */
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 // This file can be required in Browserify and Node.js for automatic polyfill
 // To use it:  require('es6-promise/auto');
 
-module.exports = __webpack_require__(11).polyfill();
+module.exports = __webpack_require__(12).polyfill();
 
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, global) {var require;/*!
@@ -7366,7 +7367,7 @@ function flush() {
 function attemptVertx() {
   try {
     var r = require;
-    var vertx = __webpack_require__(18);
+    var vertx = __webpack_require__(20);
     vertxNext = vertx.runOnLoop || vertx.runOnContext;
     return useVertxTimer();
   } catch (e) {
@@ -8392,21 +8393,233 @@ return Promise;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(0)))
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // the whatwg-fetch polyfill installs the fetch() function
 // on the global object (window or self)
 //
 // Return that as the export for use in Webpack, Browserify etc.
-__webpack_require__(17);
+__webpack_require__(19);
 module.exports = self.fetch.bind(self);
 
 
 /***/ }),
-/* 13 */,
-/* 14 */,
-/* 15 */
+/* 14 */
+/***/ (function(module, exports) {
+
+var appCacheIframe;
+
+function hasSW() {
+  return 'serviceWorker' in navigator &&
+    // This is how I block Chrome 40 and detect Chrome 41, because first has
+    // bugs with history.pustState and/or hashchange
+    (window.fetch || 'imageRendering' in document.documentElement.style) &&
+    (window.location.protocol === 'https:' || window.location.hostname === 'localhost')
+}
+
+function install(options) {
+  options || (options = {});
+
+  
+    if (hasSW()) {
+      var registration = navigator.serviceWorker
+        .register(
+          "/sw.js"
+          
+        );
+
+      
+        var handleUpdating = function(registration) {
+          var sw = registration.installing || registration.waiting;
+          var ignoreInstalling;
+          var ignoreWaiting;
+
+          // No SW or already handled
+          if (!sw || sw.onstatechange) return;
+
+          var stateChangeHandler;
+
+          // Already has SW
+          if (registration.active) {
+            onUpdateStateChange();
+            stateChangeHandler = onUpdateStateChange;
+          } else {
+            onInstallStateChange();
+            stateChangeHandler = onInstallStateChange;
+          }
+
+          ignoreInstalling = true;
+          if (registration.waiting) {
+            ignoreWaiting = true;
+          }
+
+          sw.onstatechange = stateChangeHandler;
+
+          function onUpdateStateChange() {
+            switch (sw.state) {
+              case 'redundant': {
+                sendEvent('onUpdateFailed');
+                sw.onstatechange = null;
+              } break;
+
+              case 'installing': {
+                if (!ignoreInstalling) {
+                  sendEvent('onUpdating');
+                }
+              } break;
+
+              case 'installed': {
+                if (!ignoreWaiting) {
+                  sendEvent('onUpdateReady');
+                }
+              } break;
+
+              case 'activated': {
+                sendEvent('onUpdated');
+                sw.onstatechange = null;
+              } break;
+            }
+          }
+
+          function onInstallStateChange() {
+            switch (sw.state) {
+              case 'redundant': {
+                // Failed to install, ignore
+                sw.onstatechange = null;
+              } break;
+
+              case 'installing': {
+                // Installing, ignore
+              } break;
+
+              case 'installed': {
+                // Installed, wait activation
+              } break;
+
+              case 'activated': {
+                sendEvent('onInstalled');
+                sw.onstatechange = null;
+              } break;
+            }
+          }
+        };
+
+        var sendEvent = function(event) {
+          if (typeof options[event] === 'function') {
+            options[event]({
+              source: 'ServiceWorker'
+            });
+          }
+        };
+
+        registration.then(function(reg) {
+          // WTF no reg?
+          if (!reg) return;
+
+          // Installed but Shift-Reloaded (page is not controller by SW),
+          // update might be ready at this point (more than one tab opened).
+          // Anyway, if page is hard-reloaded, then it probably already have latest version
+          // but it's not controlled by SW yet. Applying update will claim this page
+          // to be controlled by SW. Maybe set flag to not reload it?
+          // if (!navigator.serviceWorker.controller) return;
+
+          handleUpdating(reg);
+          reg.onupdatefound = function() {
+            handleUpdating(reg);
+          };
+        }).catch(function(err) {
+          sendEvent('onError');
+          return Promise.reject(err);
+        });
+      
+
+      return;
+    }
+  
+
+  
+    if (window.applicationCache) {
+      var directory = "/appcache/";
+      var name = "manifest";
+
+      var doLoad = function() {
+        var page = directory + name + '.html';
+        var iframe = document.createElement('iframe');
+
+        
+
+        iframe.src = page;
+        iframe.style.display = 'none';
+
+        appCacheIframe = iframe;
+        document.body.appendChild(iframe);
+      };
+
+      if (document.readyState === 'complete') {
+        setTimeout(doLoad);
+      } else {
+        window.addEventListener('load', doLoad);
+      }
+
+      return;
+    }
+  
+}
+
+function applyUpdate(callback, errback) {
+  
+    if (hasSW()) {
+      navigator.serviceWorker.getRegistration().then(function(registration) {
+        if (!registration || !registration.waiting) {
+          errback && errback();
+          return;
+        }
+
+        registration.waiting.postMessage({
+          action: 'skipWaiting'
+        });
+
+        callback && callback();
+      });
+
+      return;
+    }
+  
+
+  
+}
+
+function update() {
+  
+    if (hasSW()) {
+      navigator.serviceWorker.getRegistration().then(function(registration) {
+        if (!registration) return;
+        return registration.update();
+      });
+    }
+  
+
+  
+    if (appCacheIframe) {
+      try {
+        appCacheIframe.contentWindow.applicationCache.update();
+      } catch (e) {}
+    }
+  
+}
+
+
+
+exports.install = install;
+exports.applyUpdate = applyUpdate;
+exports.update = update;
+
+
+/***/ }),
+/* 15 */,
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/**
@@ -9431,7 +9644,7 @@ return VueMeta;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11715,7 +11928,7 @@ if (inBrowser && window.Vue) {
 
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports) {
 
 (function(self) {
@@ -12183,4 +12396,4 @@ if (inBrowser && window.Vue) {
 
 /***/ })
 ]);
-//# sourceMappingURL=vendor.6e0ed9f9.js.map
+//# sourceMappingURL=vendor.809b12d4.js.map
