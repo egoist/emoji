@@ -9,7 +9,7 @@
   import EmojiPanel from './EmojiPanel.vue'
   import Loading from './Loading.vue'
 
-  export default {
+export default {
     name: 'app',
     data() {
       return {
@@ -23,7 +23,7 @@
         name
       })).filter(emoji => Boolean(emoji.char))
     },
-    components: {EmojiPanel, Loading}
+    components: { EmojiPanel, Loading }
   }
 </script>
 

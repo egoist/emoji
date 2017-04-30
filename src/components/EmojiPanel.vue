@@ -52,7 +52,7 @@
   import Clipboard from 'clipboard'
   import toast from 'native-toast'
   import GitHubBadge from 'vue-github-badge'
-  import {Switch} from 'element-ui'
+  import { Switch } from 'element-ui'
   import fetch from 'unfetch'
 
   export default {
@@ -91,12 +91,12 @@
         if (this.keyword) {
           if (this.useDango) {
             try {
-              const {results} = await fetch(`https://emoji.getdango.com/api/emoji?q=${this.keyword}`).then(res => res.json())
+              const { results } = await fetch(`https://emoji.getdango.com/api/emoji?q=${this.keyword}`).then(res => res.json())
               result = results
                 .map(emoji => this.findEmojiByUnicode(emoji.text))
                 .filter(emoji => Boolean(emoji))
             } catch (err) {
-              toast({message: err.message, type: 'error'})
+              toast({ message: err.message, type: 'error' })
             }
           } else {
             const fuse = new Fuse(result, {
@@ -118,13 +118,13 @@
         this.keyword = null
         this.$refs.input.focus()
       },
-      initClipboard({currentTarget}) {
+      initClipboard({ currentTarget }) {
         this.clipboard = new Clipboard(currentTarget)
         this.clipboard.on('success', e => {
-          toast({message: `Copied ${e.text}`, type: 'success'})
+          toast({ message: `Copied ${e.text}`, type: 'success' })
         })
         this.clipboard.on('error', e => {
-          toast({message: 'Failed to copy!', type: 'error'})
+          toast({ message: 'Failed to copy!', type: 'error' })
         })
       },
       destroyClipboard() {

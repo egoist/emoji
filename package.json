@@ -8,16 +8,30 @@
   "repository": {},
   "scripts": {
     "test": "echo lol",
-    "lint": "vbuild -c --eslint",
-    "dev": "vbuild -dc",
-    "build": "vbuild -c",
+    "lint": "xo",
+    "dev": "poi",
+    "build": "poi build",
     "surge": "npm run build && surge -p dist -d emoji-search.surge.sh",
-    "deploy": "npm run lint && gh-pages -d dist"
+    "deploy": "npm run lint && npm run build && gh-pages -d dist"
+  },
+  "xo": {
+    "extends": "vue-app",
+    "extensions": [
+      "vue",
+      "js"
+    ],
+    "rules": {
+      "unicorn/filename-case": 0,
+      "import/no-unresolved": 0,
+      "import/no-extraneous-dependencies": 0
+    }
   },
   "devDependencies": {
     "babel-plugin-component": "^0.9.1",
+    "eslint-config-vue-app": "^1.2.1",
     "gh-pages": "^0.12.0",
-    "vbuild": "^6.24.0"
+    "poi": "^8.0.0-rc.1",
+    "xo": "^0.18.1"
   },
   "license": "MIT",
   "dependencies": {

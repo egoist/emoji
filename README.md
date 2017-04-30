@@ -6,7 +6,7 @@ A slim and modern emoji searcher.
 
 - [Webpack](https://webpack.js.org) - for bundling and code splitting
 - [Offline Plugin](https://github.com/NekR/offline-plugin) - for offline support
-- [vbuild](https://github.com/egoist/vbuild) - for making me forget webpack
+- [Poi](https://github.com/egoist/poi) - for making me forget webpack
 - [Vue.js](https://vuejs.org) - the unfancy framework for building web interfaces
 - [native-toast](https://github.com/egoist/native-toast) - native(Android)-like toast notification in JS and CSS
 - [clipboard](https://github.com/zenorocha/clipboard.js) - the 3kb copy-to-clipboard utility for the web

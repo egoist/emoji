@@ -1,7 +1,7 @@
 export default function (Vue) {
   Vue.mixin({
     created() {
-      const {syncStore} = this.$options
+      const { syncStore } = this.$options
       if (syncStore) {
         const store = JSON.parse(localStorage.getItem('app:store') || '{}')
         for (const name of syncStore) {
