@@ -3639,9 +3639,9 @@ object.omit@^2.0.0:
     for-own "^0.1.4"
     is-extendable "^0.1.1"
 
-offline-plugin@^4.6.1:
-  version "4.6.1"
-  resolved "https://registry.npmjs.org/offline-plugin/-/offline-plugin-4.6.1.tgz#b157545a1cdc54851a3b19fb0c444940a208e132"
+offline-plugin@^4.9.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/offline-plugin/-/offline-plugin-4.9.0.tgz#0874960c0cb0c249f96b7cfc674217934660ed5c"
   dependencies:
     deep-extend "^0.4.0"
     ejs "^2.3.4"
