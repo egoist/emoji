@@ -35,14 +35,14 @@
   },
   "license": "MIT",
   "dependencies": {
-    "clipboard": "^1.6.1",
+    "clipboard": "^1.7.1",
     "element-ui": "^1.2.4",
-    "emojilib": "^2.1.0",
+    "emojilib": "^2.2.12",
     "fuse.js": "^2.6.2",
     "lodash.debounce": "^4.0.8",
     "native-toast": "^1.1.0",
     "offline-plugin": "^4.9.0",
-    "unfetch": "^2.1.2",
+    "unfetch": "^3.0.0",
     "vue-github-badge": "^1.0.0"
   }
 }
