@@ -1,14 +1,14 @@
 CACHE MANIFEST
-#ver:2018-1-19 18:57:20
+#ver:2018-1-20 12:08:16
 #plugin:4.9.0
 
 CACHE:
 /static/element-icons.b02bdc1b.ttf
 /static/element-icons.d2f69a92.woff
-/0.704aa7c7.chunk.js
-/vendor.1d83b139.js
+/0.020eb6f3.chunk.js
+/vendor.a5bcb41b.js
 /client.20ba865d.js
-/manifest.76ea76dd.js
+/manifest.07d389c1.js
 /client.b90e61bf.css
 /vendor.8c2572f9.css
 /CNAME
