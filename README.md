@@ -17,7 +17,7 @@ A slim and modern emoji searcher.
 - `src/`: App files
   - `components/`: Components directory
   - `index.js`: App entry file
-- `vbuild.config.js`: Config file for vbuild
+- `poi.config.js`: Config file for Poi
 - `package.json`: App manifest
 - `.editorconfig`: Ensure consistent editor behaivor
 - `.gitignore`: Ignore files we don't need to push
