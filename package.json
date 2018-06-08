@@ -11,7 +11,6 @@
     "lint": "xo",
     "dev": "poi",
     "build": "poi build",
-    "surge": "npm run build && surge -p dist -d emoji-search.surge.sh",
     "deploy": "npm run lint && npm run build && gh-pages -d dist"
   },
   "xo": {
