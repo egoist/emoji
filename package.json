@@ -42,6 +42,7 @@
     "lodash.debounce": "^4.0.8",
     "native-toast": "^1.1.0",
     "offline-plugin": "^4.9.0",
+    "twemoji": "^11.0.0",
     "unfetch": "^3.0.0",
     "vue-github-badge": "^1.0.0"
   }
