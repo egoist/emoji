@@ -6,13 +6,13 @@
     </h1>
     <div class="control">
       <label class="control-block">
-        <el-switch v-model="useDango" /> Search with&nbsp;<a target="_blank" href="https://getdango.com/">Dango API</a>
+        <el-switch v-model="useDango" /> Search with&nbsp;<a target="_blank" href="https://getdango.com/">Dango</a>
       </label>
       <label class="control-block">
         <el-switch v-model="copyEmojiName" /> Copy emoji name
       </label>
       <label class="control-block">
-        <el-switch v-model="useTwemoji" /> Use twemoji
+        <el-switch v-model="useTwemoji" /> Twemoji
       </label>
     </div>
     <div class="input-group">
@@ -34,17 +34,18 @@
     <div class="emojis" v-if="result.length">
       <div
         v-for="emoji in result"
+        :key="emoji.char"
         class="emoji"
         :data-clipboard-text="copyEmojiName ? `:${emoji.name}:` : emoji.char"
         @mouseover="initClipboard"
         @mouseout="destroyClipboard">
         <span class="emoji-image">
-          <span v-show="!useTwemoji">{{ emoji.char }}</span>
           <span
-            v-show="useTwemoji"
+            v-if="useTwemoji"
             v-html="emoji2image(emoji)"
             class="twemoji-image">
           </span>
+          <span v-else>{{ emoji.char }}</span>
         </span>
         <span class="emoji-description">
           :{{ emoji.name }}:
