@@ -65,9 +65,9 @@
   import fetch from 'unfetch'
   import twemoji from 'twemoji'
 
-  const emoji2image = emoji => twemoji.parse(emoji.char, { className: 'twemoji '});
+  const emoji2image = emoji => twemoji.parse(emoji.char, { className: 'twemoji ' })
 
-  export default {
+export default {
     name: 'emoji-panel',
     props: ['source'],
     data() {
