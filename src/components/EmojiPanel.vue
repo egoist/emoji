@@ -6,10 +6,13 @@
     </h1>
     <div class="control">
       <label class="control-block">
-        <el-switch v-model="useDango" /> Search with&nbsp;<a target="_blank" href="https://getdango.com/">Dango API</a>
+        <el-switch v-model="useDango" /> Search with&nbsp;<a target="_blank" href="https://getdango.com/">Dango</a>
       </label>
       <label class="control-block">
         <el-switch v-model="copyEmojiName" /> Copy emoji name
+      </label>
+      <label class="control-block">
+        <el-switch v-model="useTwemoji" /> Twemoji
       </label>
     </div>
     <div class="input-group">
@@ -31,12 +34,18 @@
     <div class="emojis" v-if="result.length">
       <div
         v-for="emoji in result"
+        :key="emoji.char"
         class="emoji"
         :data-clipboard-text="copyEmojiName ? `:${emoji.name}:` : emoji.char"
         @mouseover="initClipboard"
         @mouseout="destroyClipboard">
         <span class="emoji-image">
-          {{ emoji.char }}
+          <span
+            v-if="useTwemoji"
+            v-html="emoji2image(emoji)"
+            class="twemoji-image">
+          </span>
+          <span v-else>{{ emoji.char }}</span>
         </span>
         <span class="emoji-description">
           :{{ emoji.name }}:
@@ -54,6 +63,9 @@
   import GitHubBadge from 'vue-github-badge'
   import { Switch } from 'element-ui'
   import fetch from 'unfetch'
+  import twemoji from 'twemoji'
+
+  const emoji2image = emoji => twemoji.parse(emoji.char, { className: 'twemoji '});
 
   export default {
     name: 'emoji-panel',
@@ -65,18 +77,21 @@
         clipboard: null,
         input: null,
         useDango: false,
+        useTwemoji: false,
         copyEmojiName: false,
         result: this.source.slice(0, 200),
         searching: false
       }
     },
-    syncStore: ['useDango', 'copyEmojiName'],
+    syncStore: ['useDango', 'useTwemoji', 'copyEmojiName'],
     created() {
       this.$watch('keyword', this.handleUpdate)
       this.$watch('category', this.handleUpdate)
       this.$watch('useDango', this.handleUpdate)
+      this.$watch('useTwemoji', this.handleUpdate)
     },
     methods: {
+      emoji2image,
       handleChange: debounce(function () {
         this.keyword = this.input
       }, 300),
@@ -148,6 +163,13 @@
 
 <style src="native-toast/dist/native-toast.css"></style>
 
+<style>
+  .emoji .twemoji-image .twemoji {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+
 <style scoped>
   .main {
     margin-top: 80px;
@@ -207,6 +229,20 @@
     background-color: #f0f0f0;
     cursor: default;
     box-shadow: inset 0 0 1px #ccc;
+  }
+
+  .emoji .emoji-image {
+    width: 30px;
+    min-width: 30px;
+    text-align: center;
+  }
+
+  .emoji .twemoji-image {
+    display: flex;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
   .emoji .emoji-description {
