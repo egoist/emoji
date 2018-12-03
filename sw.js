@@ -9,9 +9,7 @@ var __wpo = {
       "/assets/js/index.bcd29bd7.chunk.js",
       "/assets/js/runtime~index.19ceecf6.js",
       "/assets/js/3.57ba464f.chunk.js",
-      "/",
-      "/CNAME",
-      "/favicon.ico"
+      "/"
     ],
     "additional": [],
     "optional": []
@@ -26,13 +24,11 @@ var __wpo = {
     "0c606a5ff9d9e9113cc7fcb725da1e4f91d473fd": "/assets/js/index.bcd29bd7.chunk.js",
     "c98cb2a9418c0768ed3d6f4b6627bef6d1340474": "/assets/js/runtime~index.19ceecf6.js",
     "4665dc7f780c3e320574cd9881c60e449ed1d09a": "/assets/js/3.57ba464f.chunk.js",
-    "66b7f846ffaf42931464f31fddbe007fa6eb5418": "/",
-    "b62b9bf13d2c0165545864e726eff1d138f7087a": "/CNAME",
-    "be2de62e50b00303ead048c5b6b50dbdbfc96132": "/favicon.ico"
+    "66b7f846ffaf42931464f31fddbe007fa6eb5418": "/"
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "2018-12-3 15:32:15",
+  "version": "2018-12-3 15:34:34",
   "name": "webpack-offline",
   "pluginVersion": "5.0.6",
   "relativePaths": false
