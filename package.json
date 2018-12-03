@@ -9,8 +9,8 @@
   "scripts": {
     "test": "echo lol",
     "lint": "xo",
-    "dev": "poi",
-    "build": "poi build",
+    "dev": "poi --serve",
+    "build": "poi --prod",
     "deploy": "npm run lint && npm run build && gh-pages -d dist"
   },
   "xo": {
@@ -26,10 +26,11 @@
     }
   },
   "devDependencies": {
-    "babel-plugin-component": "^0.9.1",
+    "babel-plugin-component": "^1.1.1",
     "eslint-config-vue-app": "^1.2.1",
     "gh-pages": "^0.12.0",
-    "poi": "^8.0.0-rc.1",
+    "poi": "^12.0.0-beta.4",
+    "vue-template-compiler": "^2.5.17",
     "xo": "^0.18.1"
   },
   "license": "MIT",
@@ -40,9 +41,10 @@
     "fuse.js": "^2.6.2",
     "lodash.debounce": "^4.0.8",
     "native-toast": "^1.1.0",
-    "offline-plugin": "^4.9.0",
+    "offline-plugin": "^5.0.6",
     "twemoji": "^11.0.0",
     "unfetch": "^3.0.0",
+    "vue": "^2.5.17",
     "vue-github-badge": "^1.0.0"
   }
 }

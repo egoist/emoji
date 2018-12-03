@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import SyncStore from './utils/sync-store'
-import App from './components/App'
+import App from './components/App.vue'
 
 Vue.use(SyncStore)
 

@@ -1,14 +1,17 @@
-const OfflinePlugin = require('offline-plugin')
+// `NODE_ENV` is set by default by Poi
+const isProd = process.env.NODE_ENV === 'production'
 
-module.exports = options => ({
-  webpack(config) {
-    if (options.mode === 'production') {
-      config.plugins.push(new OfflinePlugin({
-        ServiceWorker: {
-          events: true
+module.exports = {
+  entry: 'src/index.js',
+  chainWebpack(config) {
+    if (isProd) {
+      config.plugin('offline').use(require('offline-plugin'), [
+        {
+          ServiceWorker: {
+            events: true
+          }
         }
-      }))
+      ])
     }
-    return config
   }
-})
+}
