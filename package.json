@@ -30,6 +30,7 @@
     "gh-pages": "^0.12.0",
     "poi": "^12.0.0-beta.4",
     "vue-template-compiler": "^2.5.17",
+    "workbox-webpack-plugin": "^3.6.3",
     "xo": "^0.18.1"
   },
   "license": "MIT",
@@ -40,7 +41,7 @@
     "fuse.js": "^2.6.2",
     "lodash.debounce": "^4.0.8",
     "native-toast": "^1.1.0",
-    "offline-plugin": "^5.0.6",
+    "register-service-worker": "^1.5.2",
     "twemoji": "^11.0.0",
     "unfetch": "^3.0.0",
     "vue": "^2.5.17",

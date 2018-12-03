@@ -5,11 +5,32 @@ module.exports = {
   entry: 'src/index.js',
   chainWebpack(config) {
     if (isProd) {
-      config.plugin('offline').use(require('offline-plugin'), [
+      config.plugin('workbox').use(require('workbox-webpack-plugin').GenerateSW, [
         {
-          ServiceWorker: {
-            events: true
-          }
+          navigateFallbackWhitelist: [/^(?!\/__).*/],
+          navigateFallback: 'index.html',
+          exclude: [
+            /\.git/,
+            /\.map$/,
+            /\.DS_Store/,
+            /^manifest.*\.js(?:on)?$/,
+            /\.gz(ip)?$/,
+            /\.br$/,
+            /CNAME$/
+          ],
+          swDest: 'service-worker.js',
+          runtimeCaching: [
+            {
+              urlPattern: /^https:\/\/twemoji\.maxcdn\.com\//,
+              handler: 'cacheFirst',
+              options: {
+                cacheableResponse: {
+                  statuses: [0, 200],
+                  headers: {}
+                }
+              }
+            }
+          ]
         }
       ])
     }

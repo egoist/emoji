@@ -1,15 +1,26 @@
-import runtime from 'offline-plugin/runtime'
+/* globals __PUBLIC_URL__ */
+import { register } from 'register-service-worker'
 
-runtime.install({
-  // When an update is ready, tell ServiceWorker to take control immediately:
-  onUpdateReady() {
-    console.log('update ready')
-    runtime.applyUpdate()
+register(__PUBLIC_URL__ + 'service-worker.js', {
+  ready(registration) {
+    console.log('Service worker is active.')
   },
-
-  // Reload to get the new version:
-  onUpdated() {
-    console.log('updated')
-    location.reload()
+  registered(registration) {
+    console.log('Service worker has been registered.')
+  },
+  cached(registration) {
+    console.log('Content has been cached for offline use.')
+  },
+  updatefound(registration) {
+    console.log('New content is downloading.')
+  },
+  updated(registration) {
+    console.log('New content is available; please refresh.')
+  },
+  offline() {
+    console.log('No internet connection found. App is running in offline mode.')
+  },
+  error(error) {
+    console.error('Error during service worker registration:', error)
   }
 })
