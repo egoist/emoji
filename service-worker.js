@@ -31,4 +31,4 @@ workbox.routing.registerNavigationRoute("index.html", {
   
 });
 
-workbox.routing.registerRoute(/^https:\/\/twemoji\.maxcdn\.com\//, workbox.strategies.cacheFirst({ plugins: [new workbox.cacheableResponse.Plugin({"statuses":[0,200],"headers":{"content-type":"image/png"}})] }), 'GET');
+workbox.routing.registerRoute(/^https:\/\/twemoji\.maxcdn\.com\//, workbox.strategies.cacheFirst({ plugins: [new workbox.cacheableResponse.Plugin({"statuses":[0,200],"headers":{}})] }), 'GET');
