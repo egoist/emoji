@@ -9,12 +9,15 @@ var __wpo = {
       "/assets/js/index.bcd29bd7.chunk.js",
       "/assets/js/runtime~index.19ceecf6.js",
       "/assets/js/3.57ba464f.chunk.js",
-      "/"
+      "/",
+      "https://twemoji.maxcdn.com/*"
     ],
     "additional": [],
     "optional": []
   },
-  "externals": [],
+  "externals": [
+    "https://twemoji.maxcdn.com/*"
+  ],
   "hashesMap": {
     "4dfc8ae8d658e62a2e3ee713112ae56e174303f9": "/assets/fonts/node_modules/element-ui/lib/theme-default/fonts/element-icons.d2f69a92.woff",
     "b56f18e001f5505e10ff5dc49162f8f87a0e3734": "/assets/fonts/node_modules/element-ui/lib/theme-default/fonts/element-icons.b02bdc1b.ttf",
@@ -28,7 +31,7 @@ var __wpo = {
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "2018-12-3 15:34:34",
+  "version": "2018-12-3 15:39:05",
   "name": "webpack-offline",
   "pluginVersion": "5.0.6",
   "relativePaths": false
