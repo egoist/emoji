@@ -39,6 +39,7 @@
     "element-ui": "^1.2.4",
     "emojilib": "^2.2.12",
     "fuse.js": "^2.6.2",
+    "ga-lite": "^2.0.5",
     "lodash.debounce": "^4.0.8",
     "native-toast": "^1.1.0",
     "register-service-worker": "^1.5.2",
